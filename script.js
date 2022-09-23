@@ -19,13 +19,6 @@ function addBookToLibrary() {
     // do stuff here
 }
 
-// title = document.getElementById("title").value;
-// author = document.getElementById("author").value;
-// pages = document.getElementById("pages").value;
-// read = document.getElementById("read").value;
-
-// let book = new Book(title, author, pages, read);
-
 const button = document.querySelector(".add-book");
 
 button.addEventListener("click", () => {
@@ -50,30 +43,18 @@ button.addEventListener("click", () => {
         let readDiv = document.createElement("div");
 
         card.classList.add(`card`);
-        cardCheck.classList.add(`cardCheck${x}`);
+        cardCheck.classList.add(`cardCheck`);
+        readDiv.classList.add(`read${x}`);
 
-        card.setAttribute("id", `${x}`);
+        card.setAttribute("id", `card${x}`);
         cardCheck.setAttribute("type", "checkbox");
-        cardCheck.setAttribute("id", "cardCheck");
-        // cardCheck.setAttribute("onclick", "checkClick()");
-
-        // let cardRead = document.querySelector(`".cardCheck${x}"`).checked;
-        // if (read == true) {
-        //     cardRead = true;
-        // } else {
-        //     cardRead = false;
-        // }
+        cardCheck.setAttribute("id", `cardCheck${x}`);
 
         libraryArea.appendChild(card);
         titleDiv.textContent = `title: ${myLibrary[x].title}`;
         authorDiv.textContent = `author: ${myLibrary[x].author}`;
         pagesDiv.textContent = `pages: ${myLibrary[x].pages}`;
         readDiv.textContent = `read: ${myLibrary[x].read}`;
-        // card.textContent =
-        //     `title: ${myLibrary[x].title}` +
-        //     `Author: ${myLibrary[x].author}` +
-        //     `Pages: ${myLibrary[x].pages}` +
-        //     `Read: ${myLibrary[x].read}`;
 
         card.appendChild(titleDiv);
         card.appendChild(authorDiv);
@@ -81,67 +62,77 @@ button.addEventListener("click", () => {
         card.appendChild(readDiv);
         card.appendChild(cardCheck);
 
-        document.querySelector(`.cardCheck${x}`).checked = myLibrary[x].read;
-        let checkBox = document.querySelector(`.cardCheck${x}`);
+        document.querySelector(`#cardCheck${x}`).checked = myLibrary[x].read;
+        let checkBox = document.querySelector(`#cardCheck${x}`);
         console.log(checkBox);
     }
-    readChecks = document.querySelectorAll(".card");
+
+    changeRead();
+
+    // readChecks = document.querySelectorAll(".card");
+    // console.log(readChecks);
+
+    // readChecks.forEach((i) => {
+    //     i.addEventListener("click", () => {
+    //         let iId = i.getAttribute("id");
+    //         console.log(iId);
+
+    //         // change read status
+
+    //         if (myLibrary[iId].read == true) {
+    //             myLibrary[iId].read = false;
+    //             document.querySelector(`.cardCheck${iId}`).checked =
+    //                 myLibrary[iId].read;
+    //         } else if (myLibrary[iId].read == false) {
+    //             myLibrary[iId].read = true;
+    //             document.querySelector(`.cardCheck${iId}`).checked =
+    //                 myLibrary[iId].read;
+    //         }
+
+    //         console.log(myLibrary[iId].read);
+
+    //         let cardId = document.getElementById(`${iId}`);
+    //         console.log("cardId:");
+    //         console.log(cardId);
+
+    //         // get read div
+    //         let oldRead = document.querySelector(`.read${iId}`);
+    //         oldRead.textContent = `read: ${myLibrary[iId].read}`;
+    //     });
+    // });
+});
+
+function changeRead() {
+    readChecks = document.querySelectorAll(".cardCheck");
     console.log(readChecks);
+
     readChecks.forEach((i) => {
         i.addEventListener("click", () => {
-            let iId = i.getAttribute("id");
+            let iId = i.getAttribute("id").replace(/[^0-9]/gi, "");
+            console.log("iId:");
             console.log(iId);
 
             // change read status
 
             if (myLibrary[iId].read == true) {
                 myLibrary[iId].read = false;
+                document.querySelector(`#cardCheck${iId}`).checked =
+                    myLibrary[iId].read;
             } else if (myLibrary[iId].read == false) {
                 myLibrary[iId].read = true;
+                document.querySelector(`#cardCheck${iId}`).checked =
+                    myLibrary[iId].read;
             }
 
             console.log(myLibrary[iId].read);
 
             let cardId = document.getElementById(`${iId}`);
+            console.log("cardId:");
             console.log(cardId);
-            // cardId.textContent = "";
-            titleDiv.textContent = `title: ${myLibrary[iId].title}`;
-            authorDiv.textContent = `author: ${myLibrary[iId].author}`;
-            pagesDiv.textContent = `pages: ${myLibrary[iId].pages}`;
-            readDiv.textContent = `read: ${myLibrary[iId].read}`;
+
+            // get read div
+            let oldRead = document.querySelector(`.read${iId}`);
+            oldRead.textContent = `read: ${myLibrary[iId].read}`;
         });
     });
-});
-
-// window.addEventListener("click", (e) => {
-//     console.log(e.target);
-// });
-
-// function checkClick() {
-//     console.log();
-// }
-
-// addBookToLibrary();
-// addBookToLibrary();
-// console.log(myLibrary[1].title);
-
-// const button = document.querySelector(".add-book");
-
-// button.addEventListener("click", () => {
-//     bookTitle = document.getElementById("title").value;
-//     title = bookTitle;
-//     addBookToLibrary();
-//     const newBook = document.createElement("p");
-//     newBook.textContent = bookTitle;
-//     sidebar.appendChild(newBook);
-// });
-
-// // create card div
-
-// const libraryArea = document.querySelector(".main");
-
-// // get card content from myLibrary
-
-// }
-
-// // append card to main div
+}
